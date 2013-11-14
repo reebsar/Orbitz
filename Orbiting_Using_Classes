@@ -1,0 +1,66 @@
+Planet Sun = new Planet(0, 0, 80, 0);
+Planet Earth = new Planet(120, 0, 30, .02);
+Planet Jupiter = new Planet(300,0,50, .02);
+Planet Moon = new Planet(50, 0, 15, .02);
+Planet Chand = new Planet(50, 0, 15, .02);
+
+void setup() {
+
+  size(800, 700);
+  noStroke();
+}
+
+void draw() {
+  background(0);
+  
+  translate(width/2, height/2);
+  fill(#FFDC3F);
+  Sun.planetMove(Sun);
+  
+  fill(240);
+  Moon.planetMove(Earth);
+  Chand.planetMove(Jupiter);
+  
+  fill(#84FFF7);
+  Earth.planetMove(Sun);
+  
+  fill(255, 0, 0);
+  Jupiter.planetMove(Sun);
+}
+
+class Planet {
+  float bodyCenter; //center of 
+  float orbitRadius;
+  float Radius;
+  float speed;
+
+
+  Planet ( float _lightyear, float _center, float _radius, float _speed) {
+
+    bodyCenter = _center;
+    orbitRadius = _lightyear; 
+    Radius = _radius;
+    speed = _speed;
+  }
+
+
+  void planetMove (Planet god) {
+    pushMatrix();
+    rotate(bodyCenter); //move in a circle
+    translate(god.orbitRadius, 0);
+    
+    
+//rotate(orbitRadius);
+    //translate(orbitRadius, 0);
+    if (speed>0) {
+      
+      bodyCenter = bodyCenter + speed;
+    }
+    rotate(god.bodyCenter); //fall into gravitational pull of parent object
+    translate(orbitRadius, 0);
+    
+    ellipse(0, 0, Radius, Radius);
+
+    popMatrix();
+  }
+}
